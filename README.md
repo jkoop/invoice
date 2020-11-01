@@ -4,7 +4,7 @@ Invoices and customers handling thing that I made to replace my awful system of 
 
 ## Installation
 
-Dependencies:
+Web server (I used Apache2), PHP 7, and some extensions:
 
 | PHP extension | Apt package    |
 | ------------- | -------------- |
