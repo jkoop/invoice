@@ -18,16 +18,20 @@ address {
     color: #444;
     padding-bottom: 8px;
 }
-#title a span.c {
-    display: none;
+#navbar a {
+    margin-right: 20px;
 }
-@media only screen and (max-width: 550px) {
-    #title a span.a, #title span.b {
-        display: none;
-    }
-    #title a span.c {
-        display: initial;
-    }
+.centre {
+    text-align: center;
+}
+h1:nth-of-type(1) span {
+    white-space: nowrap;
+}
+table {
+    margin: 0 auto;
+}
+td, th {
+    padding-right: 10px;
 }
 @media only screen and (min-width: 1016px) {
     body {
