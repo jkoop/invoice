@@ -1,0 +1,110 @@
+@import url('//static.joekoop.com/font/Roboto.css');
+html {
+    font-family: 'Roboto', 'Ubuntu', sans-serif;
+}
+body {
+    margin: 8px;
+    background-color: #FFF;
+}
+cite {
+    text-align: right;
+    display: block;
+}
+blockquote {
+    border-left: 1px solid black;
+    margin-left: 20px;
+    padding-left: 20px;
+}
+.monospace, code, pre {
+    font-family: 'Roboto Mono', monospace;
+}
+pre.shell, code.shell {
+    background-color: #000;
+    color: #fff;
+}
+hr {
+    border: 0;
+    border-top: 1px solid #000;
+}
+a[target="_blank"], a.dotted {
+    text-decoration-style: dashed;
+}
+img[src="https://static.joekoop.com/icon/github_black_and_trans.svg"] {
+    height: 15px;
+}
+img {
+    max-height: 80vh;
+    max-width: 100%;
+}
+.screenshot {
+    float: right;
+    margin-left: 12px;
+    margin-bottom: 12px;
+    max-width: 50%;
+    max-height: 80vh;
+}
+address {
+    float: right;
+    text-align: right;
+    color: #444;
+    padding-bottom: 8px;
+}
+.github-icon div {
+    display: none;
+}
+.github-icon:hover div {
+    display: inline-block;
+}
+#title a span.c {
+    display: none;
+}
+.looksLikeAnATag {
+    color: #00e;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.looksLikeAnATag:active {
+    color: #f00;
+}
+body.darkmode {
+    filter: invert(1);
+    background-color: #000;
+}
+body.darkmode .noinvert, body.darkmode img:not(.yesinvert), body.darkmode video:not(.yesinvert) {
+    filter: invert(1);
+}
+body.contentOnly {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    max-width: calc(100vw - 16px);
+    max-height: calc(100vh - 16px);
+    width: fit-content;
+    height: fit-content;
+}
+body.contentOnly .notContent {
+    display: none;
+}
+@media only screen and (max-width: 550px) {
+    .screenshot {
+        float: none;
+        display: block;
+        max-width: 100%;
+        margin-left: initial;
+    }
+    #title a span.a, #title span.b {
+        display: none;
+    }
+    #title a span.c {
+        display: initial;
+    }
+}
+@media only screen and (min-width: 1016px) {
+    body {
+        width: 1000px;
+        margin-left: calc(50% - 500px);
+    }
+}
