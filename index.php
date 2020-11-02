@@ -4,14 +4,18 @@
 include 'functions.php';
 $db = new SQLite3('db.sqlite');
 $db->query('CREATE TABLE IF NOT EXISTS `invoice` (
-	`rid` INTEGER PRIMARY KEY,
+	`number` TEXT PRIMARY KEY,
 	`cid` TEXT NOT NULL,
+	`date_issue` INTEGER NOT NULL,
+	`date_due` INTEGER NOT NULL,
+	`paid` INTEGER DEFAULT 0
+);');
+$db->query('CREATE TABLE IF NOT EXISTS `invoice_row` (
+	`row` INTEGER PRIMARY KEY,
 	`number` TEXT NOT NULL,
 	`desc` TEXT NOT NULL,
 	`qty` NUMERIC NOT NULL,
-	`each` NUMERIC NOT NULL,
-	`date_issue` INTEGER NOT NULL,
-	`date_due` INTEGER NOT NULL
+	`each` NUMERIC NOT NULL
 );');
 $db->query('CREATE TABLE IF NOT EXISTS `customer` (
 	`cid` INTEGER PRIMARY KEY,
@@ -33,6 +37,7 @@ $db->query('CREATE TABLE IF NOT EXISTS `payment` (
 	`amount` NUMERIC NOT NULL,
 	`ext_id` TEXT
 );');
+define("NOW", time());
 
 ?>
 <!DOCTYPE html>
@@ -63,9 +68,9 @@ $db->query('CREATE TABLE IF NOT EXISTS `payment` (
 <hr>
 
 <p id="navbar">
-	<a href="?invoice">Invoices</a>
-	<a href="?customer">Customers</a>
-	<a href="?payment">Payments</a>
+	<a href="?invoice">Invoice</a>
+	<a href="?customer">Customer</a>
+	<a href="?payment">Payment</a>
 </p>
 
 <hr>
@@ -75,15 +80,16 @@ $db->query('CREATE TABLE IF NOT EXISTS `payment` (
 if(isset($_GET['invoice'])){
 	if($_GET['invoice'] == ''){
 		$invoice = getInvoiceList();
-		echo '<div class="centre"><table><tr><th>Invoice &#x2116;</th><th>CID</th><th>Date Issued</th><th>Amount</th></tr>';
+		echo '<div class="centre"><table><tr><th>Invoice &#x2116;</th><th>Customer</th><th>Date Issued</th><th>Date Due</th><th>Amount</th></tr>';
 		foreach($invoice as $row){
-			$name = getCustomerName($row[1]);
+			$name = getCustomerName($row['cid']);
 			$name = $name[0].', '.$name[1];
 			echo '<tr>
-				<td><a href="?invoice='.$row[0].'">'.$row[0].'</a></td>
-				<td><a href="?customer='.$row[1].'">'.$name.'</a></td>
-				<td>'.date('Y M d', $row[2]).'</td>
-				<td>$'.number_format(getInvoiceAmount($row[0]), 2, '.', ',').'</td>
+				<td><a href="?invoice='.$row['number'].'">'.$row['number'].'</a></td>
+				<td><a href="?customer='.$row['cid'].'">'.$name.'</a></td>
+				<td>'.date('Y M d', $row['date_issue']).'</td>
+				<td'.($row['date_due']<NOW?' class="highlight"':'').'>'.date('Y M d', $row['date_due']).'</td>
+				<td>$'.number_format(getInvoiceAmount($row['number']), 2, '.', ',').'</td>
 			</tr>';
 		}
 		echo '</table></div>';
@@ -91,7 +97,30 @@ if(isset($_GET['invoice'])){
 		echo '<p class="centre">This block has not been programmed</p>';
 	}
 }elseif(isset($_GET['customer'])){
-	echo '<p class="centre">This block has not been programmed</p>';
+	if($_GET['customer'] == ''){
+		$customer = getCustomerList();
+		echo '<div class="centre"><table>
+		<tr><th></th><th colspan="2">Latest Invoice</th><th colspan="2">Amount</th></tr>
+		<tr><th>Name</th><th>Number</th><th>Date Issued</th><th>Owing</th><th>Out<wbr>standing</th></tr>';
+		foreach($customer as $row){
+			$name = getCustomerName($row['cid']);
+			$name = $name[0].', '.$name[1];
+
+			$invoice = getLatestInvoiceOfCustomer($row['cid']);
+			$owing = getAmountOwingByCustomer($row['cid']);
+			$outstanding = getAmountOutstandingByCustomer($row['cid']);
+			echo '<tr>
+				<td><a href="?customer='.$row['cid'].'">'.$name.'</a></td>
+				<td><a href="?invoice='.$invoice['number'].'">'.$invoice['number'].'</a></td>
+				<td>'.($invoice['date_issue'] != 0 ? date('Y M d', $invoice['date_issue']) : '').'</td>
+				<td>$'.number_format($owing, 2, '.', ',').'</td>
+				<td'.($outstanding>0?' class="highlight"':'').'>$'.number_format($outstanding, 2, '.', ',').'</td>
+			</tr>';
+		}
+		echo '</table></div>';
+	}else{
+		echo '<p class="centre">This block has not been programmed</p>';
+	}
 }elseif(isset($_GET['payment'])){
 	echo '<p class="centre">This block has not been programmed</p>';
 }else{
