@@ -66,8 +66,10 @@ function getAmountUnderdue($cid){
 			FROM
 		`invoice`
 			WHERE
-		`cid` = "' . $cid . '" AND
-		`date_due` >= "'.NOW.'"
+		`cid` = "' . $cid . '" AND NOT (
+			`paid` = 0 AND
+			`date_due` < "'.NOW.'"
+		)
 	');
 	$billed = 0;
 	foreach($list as $row){
