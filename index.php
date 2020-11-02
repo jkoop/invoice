@@ -8,7 +8,8 @@ $db->query('CREATE TABLE IF NOT EXISTS `invoice` (
 	`cid` TEXT NOT NULL,
 	`date_issue` INTEGER NOT NULL,
 	`date_due` INTEGER NOT NULL,
-	`paid` INTEGER DEFAULT 0
+	`paid` INTEGER DEFAULT 0,
+	`pid` INTEGER
 );');
 $db->query('CREATE TABLE IF NOT EXISTS `invoice_row` (
 	`row` INTEGER PRIMARY KEY,
@@ -96,14 +97,14 @@ if(isset($_GET['invoice'])){
 		}
 		echo '</table>';
 	}else{
-		echo '<p class="centre">This block has not been programmed</p>';
+		echo '<p class="centre">Invoice &#x2116; block has not been programmed</p>';
 	}
 }elseif(isset($_GET['customer'])){
 	if($_GET['customer'] == ''){
 		$customer = getCustomerList();
 		echo '<table>
 		<tr><th></th><th colspan="2">Latest Invoice</th><th colspan="2">Amount</th></tr>
-		<tr><th>Name</th><th>Number</th><th>Date Issued</th><th>Owing</th><th>Out<wbr>standing</th></tr>';
+		<tr><th>Name</th><th>Number</th><th>Date Issued</th><th>Owing</th><th>Over<wbr>due</th></tr>';
 		foreach($customer as $row){
 			$name = getCustomerName($row['cid']);
 			$name = $name[0].', '.$name[1];
@@ -121,7 +122,7 @@ if(isset($_GET['invoice'])){
 		}
 		echo '</table>';
 	}else{
-		echo '<p class="centre">This block has not been programmed</p>';
+		echo '<p class="centre">Customer &#x2116; block has not been programmed</p>';
 	}
 }elseif(isset($_GET['payment'])){
 	if($_GET['payment'] == ''){
@@ -140,10 +141,10 @@ if(isset($_GET['invoice'])){
 		}
 		echo '</table>';
 	}else{
-		echo '<p class="centre">This block has not been programmed</p>';
+		echo '<p class="centre">Payment &#x2116; block has not been programmed</p>';
 	}
 }else{
-	echo '<p class="centre">This block has not been programmed</p>';
+	echo '<p class="centre">Dashboard block has not been programmed</p>';
 }
 
 ?>
