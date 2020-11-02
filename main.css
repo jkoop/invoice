@@ -21,9 +21,6 @@ address {
 #navbar a {
     margin-right: 20px;
 }
-.centre {
-    text-align: center;
-}
 h1:nth-of-type(1) span {
     white-space: nowrap;
 }
@@ -32,6 +29,7 @@ table {
 }
 td, th {
     padding: 1px 8px;
+    text-align: center;
 }
 .highlight {
     background-color: #ff0;

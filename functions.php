@@ -38,7 +38,7 @@ function getAmountOutstandingByCustomer($cid){
 	$paid = getAmountPaidByCustomer($cid);
 	$overdue = getAmountOverdue($cid);
 	$underdue = getAmountUnderdue($cid);
-	$tmp = $paid - $underdue;
+	$tmp = $underdue - $paid;
 	if($tmp < 0){
 		$tmp = 0;
 	}
@@ -119,12 +119,28 @@ function getInvoiceList(){
 		`number`,
 		`cid`,
 		`date_issue`,
-		`date_due`
+		`date_due`,
+		`paid`
 			FROM
 		`invoice`
 	');
 	usort($list, function($a, $b){
 		return $b['number'] <=> $a['number'];
+	});
+	return $list;
+}
+function getPaymentList(){
+	$list = query('SELECT DISTINCT
+		`pid`,
+		`cid`,
+		`method`,
+		`amount`,
+		`date`
+			FROM
+		`payment`
+	');
+	usort($list, function($a, $b){
+		return $b['date'] <=> $a['date'];
 	});
 	return $list;
 }

@@ -35,7 +35,8 @@ $db->query('CREATE TABLE IF NOT EXISTS `payment` (
 	`cid` TEXT NOT NULL,
 	`method` TEXT NOT NULL,
 	`amount` NUMERIC NOT NULL,
-	`ext_id` TEXT
+	`ext_id` TEXT,
+	`date` INTEGER NOT NULL
 );');
 define("NOW", time());
 
@@ -80,7 +81,7 @@ define("NOW", time());
 if(isset($_GET['invoice'])){
 	if($_GET['invoice'] == ''){
 		$invoice = getInvoiceList();
-		echo '<div class="centre"><table><tr><th>Invoice &#x2116;</th><th>Customer</th><th>Date Issued</th><th>Date Due</th><th>Amount</th></tr>';
+		echo '<table><tr><th>Invoice &#x2116;</th><th>Customer</th><th>Date Issued</th><th>Date Due</th><th>Amount</th><th>Paid?</th></tr>';
 		foreach($invoice as $row){
 			$name = getCustomerName($row['cid']);
 			$name = $name[0].', '.$name[1];
@@ -88,18 +89,19 @@ if(isset($_GET['invoice'])){
 				<td><a href="?invoice='.$row['number'].'">'.$row['number'].'</a></td>
 				<td><a href="?customer='.$row['cid'].'">'.$name.'</a></td>
 				<td>'.date('Y M d', $row['date_issue']).'</td>
-				<td'.($row['date_due']<NOW?' class="highlight"':'').'>'.date('Y M d', $row['date_due']).'</td>
+				<td'.($row['date_due']<NOW&&!$row['paid']?' class="highlight"':'').'>'.date('Y M d', $row['date_due']).'</td>
 				<td>$'.number_format(getInvoiceAmount($row['number']), 2, '.', ',').'</td>
+				<td'.(!$row['paid']?' class="highlight"':'').'>'.($row['paid']?'Yes':'No').'</td>
 			</tr>';
 		}
-		echo '</table></div>';
+		echo '</table>';
 	}else{
 		echo '<p class="centre">This block has not been programmed</p>';
 	}
 }elseif(isset($_GET['customer'])){
 	if($_GET['customer'] == ''){
 		$customer = getCustomerList();
-		echo '<div class="centre"><table>
+		echo '<table>
 		<tr><th></th><th colspan="2">Latest Invoice</th><th colspan="2">Amount</th></tr>
 		<tr><th>Name</th><th>Number</th><th>Date Issued</th><th>Owing</th><th>Out<wbr>standing</th></tr>';
 		foreach($customer as $row){
@@ -117,12 +119,29 @@ if(isset($_GET['invoice'])){
 				<td'.($outstanding>0?' class="highlight"':'').'>$'.number_format($outstanding, 2, '.', ',').'</td>
 			</tr>';
 		}
-		echo '</table></div>';
+		echo '</table><p>Amount outstanding is not working yet</p>';
 	}else{
 		echo '<p class="centre">This block has not been programmed</p>';
 	}
 }elseif(isset($_GET['payment'])){
-	echo '<p class="centre">This block has not been programmed</p>';
+	if($_GET['payment'] == ''){
+		$invoice = getPaymentList();
+		echo '<table><tr><th>Payment &#x2116;</th><th>Customer</th><th>Method</th><th>Amount</th><th>Date</th></tr>';
+		foreach($invoice as $row){
+			$name = getCustomerName($row['cid']);
+			$name = $name[0].', '.$name[1];
+			echo '<tr>
+				<td><a href="?payment='.$row['pid'].'">'.$row['pid'].'</a></td>
+				<td><a href="?customer='.$row['cid'].'">'.$name.'</a></td>
+				<td>'.$row['method'].'</td>
+				<td>$'.number_format($row['amount'], 2, '.', ',').'</td>
+				<td>'.date('Y M d', $row['date']).'</td>
+			</tr>';
+		}
+		echo '</table>';
+	}else{
+		echo '<p class="centre">This block has not been programmed</p>';
+	}
 }else{
 	echo '<p class="centre">This block has not been programmed</p>';
 }
