@@ -119,7 +119,7 @@ if(isset($_GET['invoice'])){
 				<td'.($outstanding>0?' class="highlight"':'').'>$'.number_format($outstanding, 2, '.', ',').'</td>
 			</tr>';
 		}
-		echo '</table><p>Amount outstanding is not working yet</p>';
+		echo '</table>';
 	}else{
 		echo '<p class="centre">This block has not been programmed</p>';
 	}

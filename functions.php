@@ -38,7 +38,7 @@ function getAmountOutstandingByCustomer($cid){
 	$paid = getAmountPaidByCustomer($cid);
 	$overdue = getAmountOverdue($cid);
 	$underdue = getAmountUnderdue($cid);
-	$tmp = $underdue - $paid;
+	$tmp = $paid - $underdue;
 	if($tmp < 0){
 		$tmp = 0;
 	}
