@@ -26,13 +26,45 @@ h1:nth-of-type(1) span {
 }
 table {
     margin: 0 auto;
+    text-align: center;
 }
 td, th {
     padding: 1px 8px;
+}
+table.invoice, table.invoice tr.row_head th:first-of-type, table.invoice tr.invoice_row td:first-of-type {
+    text-align: left;
+}
+table.invoice {
+    white-space: nowrap;
+}
+table.invoice tr.invoice_row td:first-of-type {
+    white-space: initial;
+}
+table.invoice tr.row_head {
     text-align: center;
+}
+table.invoice tr.invoice_row, table.invoice tr:last-of-type td:last-of-type {
+    text-align: right;
 }
 .highlight {
     background-color: #ff0;
+}
+.invoice_text {
+    font-size: xxx-large;
+}
+.invoice_wide {
+    width: 100vw;
+}
+.invoice_paid {
+    text-align: center;
+    min-width: 200px;
+    transform: rotate(15deg) scale(1.5);
+}
+.invoice_paid span:first-of-type {
+    font-size: xxx-large;
+}
+.invoice_paid span:last-of-type {
+    font-size: larger;
 }
 @media only screen and (min-width: 1016px) {
     body {

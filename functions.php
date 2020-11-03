@@ -131,6 +131,23 @@ function getInvoiceList(){
 	});
 	return $list;
 }
+function getInvoice($iid){
+	$meta               = query('SELECT * FROM `invoice` WHERE `iid` = "' . $iid . '"')[0];
+	$meta['date_issue'] = date('Y M d', $meta['date_issue']);
+	$meta['date_due']   = date('Y M d', $meta['date_due']);
+	$meta['payment']    = query('SELECT * FROM `payment` WHERE `pid` = "' . $meta['pid'] . '"')[0];
+	$meta['customer']   = query('SELECT * FROM `customer` WHERE `cid` = "' . $meta['cid'] . '"')[0];
+	$meta['me']         = query('SELECT * FROM `customer` WHERE `is_me` = "1"')[0];
+	$rows               = query('SELECT * FROM `invoice_row` WHERE `iid` = "' . $iid . '"');
+
+	$meta['customer']['tel_number'] = preg_replace('~.*(\d{3})[^\d]{0,7}(\d{3})[^\d]{0,7}(\d{4}).*~', '($1) $2-$3', $meta['customer']['tel_number']);
+	$meta['me']['tel_number']       = preg_replace('~.*(\d{3})[^\d]{0,7}(\d{3})[^\d]{0,7}(\d{4}).*~', '($1) $2-$3', $meta['me']['tel_number']);
+
+	return [
+		'meta' => $meta,
+		'rows' => $rows,
+	];
+}
 function getPaymentList(){
 	$list = query('SELECT DISTINCT
 		`pid`,
@@ -161,12 +178,31 @@ function getLatestInvoiceOfCustomer($cid){
 	return $list[0];
 }
 
+function paidText($meta){
+	if(!$meta['paid']){
+		return;
+	}
+	$return = '<span>PAID</span><br><span>'.date('Y M d', $meta['payment']['date']).'</span>';
+
+	return $return;
+}
+
+function arrayToHtmlEntities($array){
+	foreach($array as &$val){
+		if(gettype($val) == 'array'){
+			$val = arrayToHtmlEntities($val);
+		}else{
+			$val = htmlentities($val);
+		}
+	}
+	return $array;
+}
 function query($query, $return = true){
 	global $db;
 	$result = $db->query($query);
 	if($return){
 		$return = [];
-		while($res = $result->fetchArray(SQLITE3_BOTH)){
+		while($res = $result->fetchArray(SQLITE3_ASSOC)){
 			$return[] = $res;
 		}
 		return $return;
