@@ -56,9 +56,13 @@ table.invoice tr.invoice_row, table.invoice tr:last-of-type td:last-of-type {
     width: 100vw;
 }
 .invoice_paid {
-    text-align: center;
     min-width: 200px;
+    text-align: center;
+}
+.invoice_paid div {
+    width: max-content;
     transform: rotate(15deg) scale(1.5);
+    margin: auto;
 }
 .invoice_paid span:first-of-type {
     font-size: xxx-large;

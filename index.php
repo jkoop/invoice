@@ -112,7 +112,7 @@ if(isset($_GET['invoice'])){
 		unset($invoice);
 
 		echo '<table class="invoice">';
-		echo '<tr><th>Issued by</th><td>'.$meta['me']['name_last'].', '.$meta['me']['name_first'].'</td><td colspan="2" rowspan="9" class="invoice_paid">'.paidText($meta).'</td><td colspan="4" rowspan="3" class="invoice_text">INVOICE</td></tr>';
+		echo '<tr><th>Issued by</th><td>'.$meta['me']['name_last'].', '.$meta['me']['name_first'].'</td><td colspan="2" rowspan="9" class="invoice_paid"><div>'.paidText($meta).'</div></td><td colspan="4" rowspan="3" class="invoice_text">INVOICE</td></tr>';
 		echo '<tr><td></td><td>'.$meta['me']['address'].'</td></tr>';
 		echo '<tr><td></td><td>'.$meta['me']['city'].', '.$meta['me']['province'].'</td></tr>';
 		echo '<tr><td></td><td>'.$meta['me']['tel_number'].'</td><th colspan="2">Invoice &#x2116;</th><td colspan="2">'.$meta['iid'].'</td></tr>';
