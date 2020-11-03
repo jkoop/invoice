@@ -4,7 +4,7 @@
 include 'functions.php';
 $db = new SQLite3('db.sqlite');
 $db->query('CREATE TABLE IF NOT EXISTS `invoice` (
-	`number` TEXT PRIMARY KEY,
+	`iid` TEXT PRIMARY KEY,
 	`cid` TEXT NOT NULL,
 	`date_issue` INTEGER NOT NULL,
 	`date_due` INTEGER NOT NULL,
@@ -13,7 +13,7 @@ $db->query('CREATE TABLE IF NOT EXISTS `invoice` (
 );');
 $db->query('CREATE TABLE IF NOT EXISTS `invoice_row` (
 	`row` INTEGER PRIMARY KEY,
-	`number` TEXT NOT NULL,
+	`iid` TEXT NOT NULL,
 	`desc` TEXT NOT NULL,
 	`qty` NUMERIC NOT NULL,
 	`each` NUMERIC NOT NULL
@@ -87,11 +87,11 @@ if(isset($_GET['invoice'])){
 			$name = getCustomerName($row['cid']);
 			$name = $name[0].', '.$name[1];
 			echo '<tr>
-				<td><a href="?invoice='.$row['number'].'">'.$row['number'].'</a></td>
+				<td><a href="?invoice='.$row['iid'].'">'.$row['iid'].'</a></td>
 				<td><a href="?customer='.$row['cid'].'">'.$name.'</a></td>
 				<td>'.date('Y M d', $row['date_issue']).'</td>
 				<td'.($row['date_due']<NOW&&!$row['paid']?' class="highlight"':'').'>'.date('Y M d', $row['date_due']).'</td>
-				<td>$'.number_format(getInvoiceAmount($row['number']), 2, '.', ',').'</td>
+				<td>$'.number_format(getInvoiceAmount($row['iid']), 2, '.', ',').'</td>
 				<td'.(!$row['paid']?' class="highlight"':'').'>'.($row['paid']?'Yes':'No').'</td>
 			</tr>';
 		}
@@ -114,7 +114,7 @@ if(isset($_GET['invoice'])){
 			$outstanding = getAmountOutstandingByCustomer($row['cid']);
 			echo '<tr>
 				<td><a href="?customer='.$row['cid'].'">'.$name.'</a></td>
-				<td><a href="?invoice='.$invoice['number'].'">'.$invoice['number'].'</a></td>
+				<td><a href="?invoice='.$invoice['iid'].'">'.$invoice['iid'].'</a></td>
 				<td>'.($invoice['date_issue'] != 0 ? date('Y M d', $invoice['date_issue']) : '').'</td>
 				<td>$'.number_format($owing, 2, '.', ',').'</td>
 				<td'.($outstanding>0?' class="highlight"':'').'>$'.number_format($outstanding, 2, '.', ',').'</td>

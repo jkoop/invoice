@@ -8,7 +8,7 @@ if(substr(strtok($_SERVER['REQUEST_URI'], '?'), -1) != '/'){
 
 function getAmountBilledByCustomer($cid){
 	$list = query('SELECT DISTINCT
-		`number`
+		`iid`
 			FROM
 		`invoice`
 			WHERE
@@ -46,7 +46,7 @@ function getAmountOutstandingByCustomer($cid){
 }
 function getAmountOverdue($cid){
 	$list = query('SELECT DISTINCT
-		`number`
+		`iid`
 			FROM
 		`invoice`
 			WHERE
@@ -62,7 +62,7 @@ function getAmountOverdue($cid){
 }
 function getAmountUnderdue($cid){
 	$list = query('SELECT DISTINCT
-		`number`
+		`iid`
 			FROM
 		`invoice`
 			WHERE
@@ -108,7 +108,7 @@ function getInvoiceAmount($number){
 			FROM
 		`invoice_row`
 			WHERE
-		`number` = "'.$number.'"
+		`iid` = "'.$number.'"
 	');
 	$return = 0;
 	foreach($list as $row){
@@ -118,7 +118,7 @@ function getInvoiceAmount($number){
 }
 function getInvoiceList(){
 	$list = query('SELECT DISTINCT
-		`number`,
+		`iid`,
 		`cid`,
 		`date_issue`,
 		`date_due`,
@@ -148,7 +148,7 @@ function getPaymentList(){
 }
 function getLatestInvoiceOfCustomer($cid){
 	$list = query('SELECT DISTINCT
-		`number`,
+		`iid`,
 		`date_issue`
 			FROM
 		`invoice`
