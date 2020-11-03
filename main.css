@@ -72,3 +72,8 @@ table.invoice tr.invoice_row, table.invoice tr:last-of-type td:last-of-type {
         margin-left: calc(50% - 500px);
     }
 }
+@media print {
+    h1, hr, address, p {
+        display: none;
+    }
+}
