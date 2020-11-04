@@ -27,9 +27,12 @@ h1:nth-of-type(1) span {
 table {
     margin: 0 auto;
     text-align: center;
+    /*    border-collapse: collapse;
+    border-spacing: 0px;*/
 }
 td, th {
     padding: 1px 8px;
+    /*border: 1px solid black;*/
 }
 table.invoice, table.invoice tr.row_head th:first-of-type, table.invoice tr.invoice_row td:first-of-type {
     text-align: left;
@@ -40,10 +43,10 @@ table.invoice {
 table.invoice tr.invoice_row td:first-of-type {
     white-space: initial;
 }
-table.invoice tr.row_head {
+table.invoice tr.row_head, table.invoice tr:last-of-type, .invoice_paid {
     text-align: center;
 }
-table.invoice tr.invoice_row, table.invoice tr:last-of-type td:last-of-type {
+table.invoice tr.invoice_row, table.invoice tr:last-of-type td:last-of-type, .invoice_text {
     text-align: right;
 }
 .highlight {
