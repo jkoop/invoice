@@ -56,6 +56,7 @@ define("NOW", time());
 <?= isset($_GET['payment']) ? 'Payment ' . (
 	$_GET['payment'] != '' ? '#' : ''
 	) . $_GET['payment'] . ' - ' : '' ?>Inco</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preload, preconnect, dns-prefetch, shortcut icon" href="favicon.png">
 <link rel="preload, preconnect, dns-prefetch, stylesheet" href="main.css">
@@ -112,12 +113,27 @@ if(isset($_GET['invoice'])){
 		unset($invoice);
 
 		echo '<table class="invoice">';
-		echo '<tr><th>Issued by</th><td>'.$meta['me']['name_last'].', '.$meta['me']['name_first'].'</td><td rowspan="9" class="invoice_paid"><div>'.paidText($meta).'</div></td><td colspan="4" rowspan="3" class="invoice_text">INVOICE</td></tr>';
+		echo '<tr><th>Issued by</th><td>'.$meta['me']['name_last'].', '.$meta['me']['name_first'].'</td><td colspan="2" rowspan="9" class="invoice_paid"><div>'.paidText($meta).'</div></td><td colspan="4" rowspan="3" class="invoice_text">INVOICE</td></tr>';
 		echo '<tr><td></td><td>'.$meta['me']['address'].'</td></tr>';
 		echo '<tr><td></td><td>'.$meta['me']['city'].', '.$meta['me']['province'].'</td></tr>';
-		echo '<tr><td></td><td>'.$meta['me']['tel_number'].'</td><th colspan="2">Invoice &#x2116;</th><td colspan="2">'.$meta['iid'].'</td></tr>';
-		echo '<tr><td></td><td></td><th colspan="2">Date Issued</th><td colspan="2">'.$meta['date_issue'].'</td></tr>';
-		echo '<tr><th>Bill to</th><td>'.$meta['customer']['name_last'].', '.$meta['customer']['name_first'].'</td><th colspan="2">Date Due</th><td colspan="2">'.$meta['date_due'].'</td></tr>';
+		echo '<tr><td></td><td>'.$meta['me']['tel_number'].'</td><td colspan="3" rowspan="3" style="padding-right: 0px;">
+	        <table>
+	          <tbody><tr>
+	            <th>Invoice №</th>
+	            <td>'.$meta['iid'].'</td>
+	          </tr>
+	          <tr>
+	            <th>Date Issued</th>
+	            <td>'.$meta['date_issue'].'</td>
+	          </tr>
+	          <tr>
+	            <th>Date Due</th>
+	            <td>'.$meta['date_due'].'</td>
+	          </tr>
+	        </tbody></table>
+	      </td></tr>';
+		echo '<tr><td>&nbsp;</td></tr>';
+		echo '<tr><th>Bill to</th><td>'.$meta['customer']['name_last'].', '.$meta['customer']['name_first'].'</td></tr>';
 		echo '<tr><td></td><td>'.$meta['customer']['address'].'</td><td colspan="4"></td></tr>';
 		echo '<tr><td></td><td>'.$meta['customer']['city'].', '.$meta['customer']['province'].'</td><td colspan="4"></td></tr>';
 		echo '<tr><td></td><td>'.$meta['customer']['tel_number'].'</td><td colspan="4"></td></tr>';
@@ -130,7 +146,7 @@ if(isset($_GET['invoice'])){
 			echo '<tr class="invoice_row"><td colspan="3">'.$row['desc'].'</td><td>'.number_format($row['qty'], 2, '.', ',').'</td><td>'.number_format($row['each'], 2, '.', ',').'</td><td>'.number_format($lineTotal, 2, '.', ',').'</td><td>'.number_format($runningTotal, 2, '.', ',').'</td></tr>';
 		}
 
-		echo '<tr><td colspan="7">&nbsp;</td></tr><tr><td colspan="5"></td><th>Total</th><td>$'.number_format($runningTotal, 2, '.', ',').'</td></tr>';
+		echo '<tr><td colspan="7">&nbsp;</td></tr><tr><td colspan="5"></td><th class="center">Total</th><td>$'.number_format($runningTotal, 2, '.', ',').'</td></tr>';
 
 		echo '</table>';
 	}

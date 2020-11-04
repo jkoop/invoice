@@ -34,7 +34,7 @@ td, th {
     padding: 1px 8px;
     /*border: 1px solid black;*/
 }
-table.invoice, table.invoice tr.row_head th:first-of-type, table.invoice tr.invoice_row td:first-of-type {
+table.invoice, table table, table.invoice tr.row_head th:first-of-type, table.invoice tr.invoice_row td:first-of-type {
     text-align: left;
 }
 table.invoice {
@@ -43,7 +43,7 @@ table.invoice {
 table.invoice tr.invoice_row td:first-of-type {
     white-space: initial;
 }
-table.invoice tr.row_head, table.invoice tr:last-of-type, .invoice_paid {
+table.invoice tr.row_head, .center, .invoice_paid {
     text-align: center;
 }
 table.invoice tr.invoice_row, table.invoice tr:last-of-type td:last-of-type, .invoice_text {
