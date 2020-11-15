@@ -90,7 +90,7 @@ function getCustomerList(){
 	');
 	return $list;
 }
-function getCustomerName($cid){
+function getCustomerName($cid, $string = false){
 	$list = query('SELECT
 		`name_last`,
 		`name_first`
@@ -99,6 +99,9 @@ function getCustomerName($cid){
 			WHERE
 		`cid` = '.$cid.'
 	');
+	if($string){
+		$list[0] = $list[0]['name_last'] . ', ' . $list[0]['name_first'];
+	}
 	return $list[0];
 }
 function getInvoiceAmount($number){

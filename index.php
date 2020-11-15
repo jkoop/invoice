@@ -59,31 +59,16 @@ define("NOW", time());
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preload, preconnect, dns-prefetch, shortcut icon" href="favicon.png">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 <link rel="preload, preconnect, dns-prefetch, stylesheet" href="main.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
 
 </head>
 <body>
 
-<h1>
-	<?= count($_GET) > 0 ? '<a href=".">Inco</a> &gt;' : 'Inco' ?>
-	<?= isset($_GET['invoice']) ? '<span>Invoice ' . (
-		$_GET['invoice'] != '' ? '#' : ''
-		) . $_GET['invoice'] . '</span>' : '' ?>
-	<?= isset($_GET['customer']) ? '<span>Customer ' . (
-		$_GET['customer'] != '' ? '#' : ''
-		) . $_GET['customer'] . '</span>' : '' ?>
-	<?= isset($_GET['payment']) ? '<span>Payment ' . (
-		$_GET['payment'] != '' ? '#' : ''
-		) . $_GET['payment'] . '</span>' : '' ?>
-</h1>
-
-<hr>
-
-<p id="navbar">
-	<a href="?invoice">Invoice</a>
-	<a href="?customer">Customer</a>
-	<a href="?payment">Payment</a>
-</p>
+<?php include 'header.php'; ?>
 
 <hr>
 

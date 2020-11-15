@@ -1,21 +1,10 @@
-@import url('//static.joekoop.com/font/Roboto.css');
-html {
-    font-family: 'Roboto', 'Ubuntu', sans-serif;
-}
 body {
     margin: 8px;
-}
-.monospace, code, pre {
-    font-family: 'Roboto Mono', monospace;
-}
-hr {
-    border: 0;
-    border-top: 1px solid #000;
 }
 address {
     float: right;
     text-align: right;
-    color: #444;
+    color: #AAA;
     padding-bottom: 8px;
 }
 #navbar a {
