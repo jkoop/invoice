@@ -8,7 +8,7 @@ if(substr(strtok($_SERVER['REQUEST_URI'], '?'), -1) != '/'){
 
 if($_GET['invoice'] == ''){
 	$invoice = getInvoiceList();
-	echo '<table><tr><th>Invoice &#x2116;</th><th>Customer</th><th>Date Issued</th><th>Date Due</th><th>Amount</th><th>Paid?</th></tr>';
+	echo '<table class="table table-striped"><thead class="thead-dark"><tr><th>Invoice &#x2116;</th><th>Customer</th><th>Date Issued</th><th>Date Due</th><th>Amount</th><th>Paid?</th></tr></thead><body>';
 	foreach($invoice as $row){
 		$name = getCustomerName($row['cid']);
 		$name = $name['name_last'].', '.$name['name_first'];
@@ -21,7 +21,7 @@ if($_GET['invoice'] == ''){
 			<td'.(!$row['paid']?' class="highlight"':'').'>'.($row['paid']?'Yes':'No').'</td>
 		</tr>';
 	}
-	echo '</table>';
+	echo '</body></table>';
 }else{
 	$invoice = arrayToHtmlEntities(getInvoice($_GET['invoice']));
 	$meta = $invoice['meta'];

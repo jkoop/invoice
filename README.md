@@ -10,4 +10,4 @@ Web server (I used Apache2), PHP 7, and some extensions:
 | ------------- | -------------- |
 | SQLite3       | php7.4-sqlite3 |
 
-Your web server also needs write permission to the root of the project (the directory with `index.php` in it).
+Your web server additionally needs write permission to the `/private/` directory.

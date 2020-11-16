@@ -13,17 +13,17 @@ address {
 h1:nth-of-type(1) span {
     white-space: nowrap;
 }
-table {
+table.invoice {
     margin: 0 auto;
     text-align: center;
     /*    border-collapse: collapse;
     border-spacing: 0px;*/
 }
-td, th {
+table.invoice td, table.invoice th {
     padding: 1px 8px;
     /*border: 1px solid black;*/
 }
-table.invoice, table table, table.invoice tr.row_head th:first-of-type, table.invoice tr.invoice_row td:first-of-type {
+table.invoice, table.invoice table, table.invoice tr.row_head th:first-of-type, table.invoice tr.invoice_row td:first-of-type {
     text-align: left;
 }
 table.invoice {

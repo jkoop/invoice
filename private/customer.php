@@ -8,9 +8,8 @@ if(substr(strtok($_SERVER['REQUEST_URI'], '?'), -1) != '/'){
 
 if($_GET['customer'] == ''){
 	$customer = getCustomerList();
-	echo '<table>
-	<tr><th></th><th colspan="2">Latest Invoice</th><th colspan="2">Amount</th></tr>
-	<tr><th>Name</th><th>Number</th><th>Date Issued</th><th>Owing</th><th>Over<wbr>due</th></tr>';
+	echo '<table class="table table-striped"><thead class="thead-dark">
+	<tr><th>Name</th><th>Last Invoice Number</th><th>Last Invoice Date Issued</th><th>Owing</th><th>Over<wbr>due</th></tr></thead><tbody>';
 	foreach($customer as $row){
 		$name = getCustomerName($row['cid']);
 		$name = $name['name_last'].', '.$name['name_first'];
@@ -26,9 +25,9 @@ if($_GET['customer'] == ''){
 			<td'.($outstanding>0?' class="highlight"':'').'>$'.number_format($outstanding, 2, '.', ',').'</td>
 		</tr>';
 	}
-	echo '</table>';
+	echo '</tbody></table>';
 }else{
-	echo '<p class="centre">Customer &#x2116; block has not been programmed</p>';
+	echo '<p class="centre">Customer &#x2116; block not yet implemented</p>';
 }
 
 ?>

@@ -6,6 +6,46 @@ if(substr(strtok($_SERVER['REQUEST_URI'], '?'), -1) != '/'){
 	exit();
 }
 
+// Initialize db connection
+$db = new SQLite3('private/db.sqlite');
+$db->query('CREATE TABLE IF NOT EXISTS `invoice` (
+	`iid` TEXT PRIMARY KEY,
+	`cid` TEXT NOT NULL,
+	`date_issue` INTEGER NOT NULL,
+	`date_due` INTEGER NOT NULL,
+	`paid` INTEGER DEFAULT 0,
+	`pid` INTEGER
+);');
+$db->query('CREATE TABLE IF NOT EXISTS `invoice_row` (
+	`row` INTEGER PRIMARY KEY,
+	`iid` TEXT NOT NULL,
+	`desc` TEXT NOT NULL,
+	`qty` NUMERIC NOT NULL,
+	`each` NUMERIC NOT NULL
+);');
+$db->query('CREATE TABLE IF NOT EXISTS `customer` (
+	`cid` INTEGER PRIMARY KEY,
+	`name_last` TEXT NOT NULL,
+	`name_first` TEXT NOT NULL,
+	`address` TEXT,
+	`city` TEXT,
+	`province` TEXT,
+	`post_code` TEXT,
+	`tel_number` INTEGER NOT NULL,
+	`fax_number` INTEGER,
+	`email` TEXT,
+	`is_me` INTEGER
+);');
+$db->query('CREATE TABLE IF NOT EXISTS `payment` (
+	`pid` INTEGER PRIMARY KEY,
+	`cid` TEXT NOT NULL,
+	`method` TEXT NOT NULL,
+	`amount` NUMERIC NOT NULL,
+	`ext_id` TEXT,
+	`date` INTEGER NOT NULL
+);');
+define("NOW", time());
+
 function getAmountBilledByCustomer($cid){
 	$list = query('SELECT DISTINCT
 		`iid`
