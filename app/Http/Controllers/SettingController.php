@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Currency;
+use App\Models\Timezone;
 use Illuminate\Contracts\View\View;
 
 class SettingController extends Controller {
@@ -18,33 +20,7 @@ class SettingController extends Controller {
     }
 
     public function viewLocale(): View {
-        $timezones = array_diff(explode("\n", file_get_contents('helper/timezones')), ['']);
-        $timezoneContinents = [];
-        $timezoneTree = [];
-
-        foreach ($timezones as $tz) {
-            $continent = strtok($tz, '/');
-
-            if (!in_array($continent, $timezoneContinents)) {
-                $timezoneContinents[] = $continent;
-            }
-
-            if (isset($timezoneTree[$continent])) {
-                $timezoneTree[$continent][] = strtok('/');
-            } else {
-                $timezoneTree[$continent] = [
-                    strtok('/'),
-                ];
-            }
-        }
-
-        $currencies = getListOfCurrencies();
-
-        return view('pages/setting/email', [
-            'currencies' => $currencies,
-            'timezoneTree' => $timezoneTree,
-            'timezoneContinents' => $timezoneContinents,
-        ]);
+        return view('pages/setting/locale');
     }
 
     public function viewDatabase(): View {

@@ -6,8 +6,8 @@
         <label for="currency" class="form-label">Default Currency</label>
         <div class="input-group">
             <select class="form-select" name="currency" id="currency" onchange="updateCurrencyButtons()">
-                @foreach ($currencies as $c)
-                    <option value="{{ $c[2] }}">{{ $c[0] }}</option>
+                @foreach (\App\Models\Currency::all() as $currency)
+                    <option value="{{ $currency->code }}">{{ $currency->description }}</option>
                 @endforeach
             </select>
 
@@ -53,8 +53,8 @@
         <label for="timezone-continent" class="form-label">Timezone</label>
         <div class="input-group">
             <select class="form-select" id="timezone-continent" name="timezone-continent" onchange="updateTimezoneCity()">
-                @foreach ($timezoneContinents as $tz)
-                    <option>{{ $tz }}</option>
+                @foreach (\App\Models\Timezone::getContinents() as $continent)
+                    <option>{{ $continent }}</option>
                 @endforeach
             </select>
             <span class="input-group-text">/</span>
@@ -67,16 +67,16 @@
 </form>
 
 <script>
-	var listOfCurrencies = @json(getAssociativeListOfCurrencies());
+	var listOfCurrencies = {!! json_encode(\App\Models\Currency::allByCode()) !!};
 	updateCurrencyButtons();
 
 	function updateCurrencyButtons() {
-		let currency = $('#currency option:selected').val();
-        $('label[for=display-symbol]').text(listOfCurrencies[currency][1]);
-        $('label[for=display-code]').text(listOfCurrencies[currency][2]);
+		let currencyCode = $('#currency option:selected').val();
+        $('label[for=display-symbol]').text(listOfCurrencies[currencyCode].symbol);
+        $('label[for=display-code]').text(currencyCode);
 	}
 
-    var timezoneTree = @json($timezoneTree);
+    var timezoneTree = {!! json_encode(\App\Models\Timezone::getTimezoneTree()) !!};
     updateTimezoneCity();
 
     function updateTimezoneCity() {
