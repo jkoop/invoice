@@ -8,11 +8,11 @@
 
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link @if (request()->is('invoice*')) active @endif" href="/invoice">Invoice</a>
-                <a class="nav-link @if (request()->is('payment*')) active @endif" href="/payment">Payment</a>
-                <a class="nav-link @if (request()->is('credit*')) active @endif" href="/credit">Credit</a>
-                <a class="nav-link @if (request()->is('client*')) active @endif" href="/client">Client</a>
-                <a class="nav-link @if (request()->is('setting*')) active @endif" href="/setting">Setting</a>
+                <a class="nav-link @if (request()->is('invoice*')) active @endif" href="{{ route('invoice') }}">Invoice</a>
+                <a class="nav-link @if (request()->is('payment*')) active @endif" href="{{ route('payment') }}">Payment</a>
+                <a class="nav-link @if (request()->is('credit*')) active @endif" href="{{ route('credit') }}">Credit</a>
+                <a class="nav-link @if (request()->is('client*')) active @endif" href="{{ route('client') }}">Client</a>
+                <a class="nav-link @if (request()->is('setting*')) active @endif" href="{{ route('setting') }}">Setting</a>
             </div>
         </div>
     </div>

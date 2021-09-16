@@ -13,6 +13,7 @@ class CurrencySeeder extends Seeder {
      */
     public function run() {
         static $currencies = [
+            // description, symbol, code
             ['Afghan afghani','؋','AFN'],
             ['Albanian lek','L','ALL'],
             ['Algerian dinar','د.ج','DZD'],
@@ -179,7 +180,7 @@ class CurrencySeeder extends Seeder {
 
         foreach ($currencies as $currency) {
             DB::table('currencies')->insert([
-                'description' => $currency[0],
+                'description' => ucWords($currency[0]),
                 'symbol' => $currency[1],
                 'code' => $currency[2],
             ]);

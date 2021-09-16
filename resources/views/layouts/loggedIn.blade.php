@@ -7,8 +7,7 @@
     @include('blocks.navigation')
 
     <div id="content">
-        {{-- @include('blocks.alerts') --}}
-        {{-- @include('blocks.messages') --}}
+        @include('blocks.messages')
 
         <h1>{{ Breadcrumbs::pageTitle() }}</h1>
 

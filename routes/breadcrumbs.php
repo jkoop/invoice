@@ -41,10 +41,10 @@ Breadcrumbs::for('setting', function (BreadcrumbTrail $trail) {
     $trail->push('Setting', route('setting'));
 });
 
-// Setting > My Address
-Breadcrumbs::for('setting.myAddress', function (BreadcrumbTrail $trail) {
+// Setting > My Contact Info
+Breadcrumbs::for('setting.contactInfo', function (BreadcrumbTrail $trail) {
     $trail->parent('setting');
-    $trail->push('My Address', route('setting.myAddress'));
+    $trail->push('My Contact Info', route('setting.contactInfo'));
 });
 
 // Setting > Email
