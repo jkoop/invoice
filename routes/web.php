@@ -31,6 +31,6 @@ Route::get('/client/{client}', [C\ClientController::class, 'view'])->name('clien
 Route::get('/setting', [C\SettingController::class, 'list'])->name('setting');
 Route::get('/setting/contact-info', [C\SettingController::class, 'viewContactInfo'])->name('setting.contactInfo');
 Route::post('/setting/contact-info', [C\SettingController::class, 'updateContactInfo'])->name('setting.contactInfo.update');
-Route::get('/setting/email', [C\SettingController::class, 'viewEmail'])->name('setting.email');
+// Route::get('/setting/email', [C\SettingController::class, 'viewEmail'])->name('setting.email');
 Route::get('/setting/locale', [C\SettingController::class, 'viewLocale'])->name('setting.locale');
 Route::post('/setting/locale', [C\SettingController::class, 'updateLocale'])->name('setting.locale.update');
