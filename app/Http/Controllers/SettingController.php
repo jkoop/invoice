@@ -65,6 +65,7 @@ class SettingController extends Controller {
             'timezoneContinents' => Timezone::getContinents(),
             'timezoneTree' => Timezone::getTimezoneTree(),
 
+            'useMetricPrefixes' => Setting::get('use_metric_prefixes'),
             'defaultCurrencyCode' => Setting::get('default_currency_code'),
             'defaultCurrencyDisplay' => Setting::get('default_currency_display'),
             'thousandsSeparator' => Setting::get('thousands_separator'),
@@ -87,9 +88,20 @@ class SettingController extends Controller {
             ['date_format', 'date-format'],
         ];
 
+        static $booleanSettingPairs = [
+            // db key, request key
+            ['use_metric_prefixes', 'use-metric-prefixes'],
+        ];
+
         foreach ($settingPairs as $pair) {
             $s = Setting::find($pair[0]); // db key
             $s->value = request($pair[1]); // request key
+            $s->save();
+        }
+
+        foreach ($booleanSettingPairs as $pair) {
+            $s = Setting::find($pair[0]); // db key
+            $s->value = request()->has($pair[1]); // request key
             $s->save();
         }
 

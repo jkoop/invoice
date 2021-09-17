@@ -6,6 +6,11 @@
 
     <div class="col-md-6">
         <label for="currency" class="form-label">Default Currency</label>
+        <div class="form-check form-switch" style="display: inline; float: right; white-space: nowrap">
+            <input class="form-check-input" type="checkbox" name="use-metric-prefixes" id="use-metric-prefixes" @if($useMetricPrefixes) checked @endif>
+            <label class="form-check-label" for="use-metric-prefixes">Use metric prefixes</label>
+        </div>
+
         <div class="input-group">
             <select class="form-select" name="default-currency-code" id="currency" onchange="updateCurrencyButtons()">
                 @foreach ($currencies as $currency)

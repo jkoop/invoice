@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use Illuminate\Contracts\View\View;
 
 class ClientController extends Controller {
     public function list(): View {
-        return view('pages/client/list');
+        $clients = Client::all();
+
+        return view('pages/client/list', [
+            'clients' => $clients,
+        ]);
     }
 }

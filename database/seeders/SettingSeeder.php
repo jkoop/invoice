@@ -24,6 +24,7 @@ class SettingSeeder extends Seeder {
             ['province', ''],
             ['postal_code', ''],
             ['country', ''],
+            ['use_metric_prefixes', true],
             ['default_currency_code', 'CAD'],
             ['default_currency_display', 'symbol'],
             ['thousands_separator', 'comma'],
